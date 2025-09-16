@@ -1,0 +1,154 @@
+{% extends "dashboard.html" %}
+{% block title %}Books Add or Update{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    <label>Title:</label><br>
+    <label>
+        <input type="text" name="title" value="{{ book.title if book else '' }}" required>
+    </label>
+
+    <br>
+
+    <label>Description:</label><br>
+    <label>
+        <textarea name="description">{{ book.description if book else '' }}</textarea>
+    </label>
+    <br>
+
+    <label>Publish Date:</label><br>
+    <label>
+        <input type="date" name="publish_date" value="{{ book.publish_date if book else '' }}">
+    </label>
+    <br>
+
+    <label>Cover Image:</label><br>
+    {% if book and book.cover_image_path %}
+        <img src="{{ url_for('static', filename=book.cover_image_path) }}" width="100" alt="book cover"><br>
+        <input type="hidden" name="existing_cover" value="{{ book.cover_image_path }}">
+    {% endif %}
+    <input type="file" name="cover">
+
+    <br>
+
+    <h3>Chapters</h3>
+    <div id="chapters-container">
+        <!-- 章节行会动态添加到这里 -->
+    </div>
+    <button type="button" id="add-chapter-btn">Add Chapter</button>
+
+    <br>
+
+    <!-- 这里是隐藏的 textarea，提交时放所有章节的序号和内容，供后端解析 -->
+    <label for="chapters-textarea">
+        <textarea name="chapters" id="chapters-textarea" class="visually-hidden"></textarea>
+    </label>
+
+    <div class="btn-group">
+        <button type="submit" onclick="prepareChapters()">Save</button>
+        <a href="{{ url_for('book.book') }}">Cancel</a>
+    </div>
+
+</form>
+
+<script>
+    const chaptersContainer = document.getElementById('chapters-container');
+    const chaptersTextarea = document.getElementById('chapters-textarea');
+    const addChapterBtn = document.getElementById('add-chapter-btn');
+
+    function addChapter(chapterNumber = '', chapterTitle = '', chapterContent = '', chapterId = '') {
+        const div = document.createElement('div');
+        div.classList.add('chapter-row');
+        div.style.marginBottom = '8px';
+
+        div.innerHTML = `
+            <input type="text" class="chapter-id" value="${chapterId}" hidden="hidden">
+            <input type="number" class="chapter-number" placeholder="Chapter #" value="${chapterNumber}">
+            <input type="text" class="chapter-title" value="${chapterTitle}">
+            <textarea class="chapter-content" placeholder="Chapter content" style="width: 60%; height: 80px;" required>${chapterContent}</textarea>
+            <button type="button" class="move-up-btn">↑ 上移</button>
+            <button type="button" class="move-down-btn">↓ 下移</button>
+            <button type="button" class="remove-chapter-btn">Remove</button>
+        `;
+
+        // 删除章节
+        div.querySelector('.remove-chapter-btn').onclick = () => {
+            div.remove();
+            refreshButtons();
+        };
+
+        // 上移
+        div.querySelector('.move-up-btn').onclick = () => {
+            const prev = div.previousElementSibling;
+            if (prev) {
+                chaptersContainer.insertBefore(div, prev);
+                refreshButtons();
+            }
+        };
+
+        // 下移
+        div.querySelector('.move-down-btn').onclick = () => {
+            const next = div.nextElementSibling;
+            if (next) {
+                chaptersContainer.insertBefore(next, div);
+                refreshButtons();
+            }
+        };
+
+        chaptersContainer.appendChild(div);
+        refreshButtons();
+    }
+
+    // 根据位置刷新按钮状态（第一个不显示上移，最后一个不显示下移）
+    function refreshButtons() {
+        const rows = chaptersContainer.querySelectorAll('.chapter-row');
+        rows.forEach((row, index) => {
+            const upBtn = row.querySelector('.move-up-btn');
+            const downBtn = row.querySelector('.move-down-btn');
+            upBtn.style.display = index === 0 ? 'none' : 'inline-block';
+            downBtn.style.display = index === rows.length - 1 ? 'none' : 'inline-block';
+        });
+    }
+
+    addChapterBtn.onclick = () => addChapter();
+
+    // 提交前，直接生成 JSON 字符串
+    function prepareChapters() {
+        const rows = chaptersContainer.querySelectorAll('.chapter-row');
+        const chapters = [];
+
+        rows.forEach(row => {
+            let chapterId = row.querySelector('.chapter-id').value.trim();
+            if (chapterId === '') {
+                chapterId = null;
+            }
+            const number = row.querySelector('.chapter-number').value.trim();
+            const title = row.querySelector('.chapter-title').value.trim();
+            const content = row.querySelector('.chapter-content').value.trim();
+            if ((number || title) && content) {
+                chapters.push({
+                    chapter_id: chapterId,
+                    chapter: parseInt(number, 10),
+                    chapter_title: title,
+                    content: content
+                });
+            }
+        });
+
+        chaptersTextarea.value = JSON.stringify(chapters);
+    }
+
+    const existingChapters = {{ chapters|tojson|safe }};
+
+    window.onload = () => {
+        if (existingChapters && existingChapters.length > 0) {
+            existingChapters.forEach(c => {
+                addChapter(c.chapter, c.chapter_title, c.content, c.chapter_id);
+            });
+        } else {
+            addChapter();
+        }
+    };
+</script>
+
+{% endblock %}

@@ -1,0 +1,424 @@
+/* ========== Base & Layout ========== */
+:root {
+    --bg: #ffffff;
+    --fg: #1f2937; /* slate-800 */
+    --muted: #6b7280; /* slate-500 */
+    --card: #f8fafc; /* slate-50 */
+    --line: #e5e7eb; /* slate-200 */
+    --accent: #2563eb; /* blue-600 */
+    --accent-hover: #1d4ed8; /* blue-700 */
+    --danger: #dc2626; /* red-600 */
+    --warn: #d97706; /* amber-600 */
+    --ok: #16a34a; /* green-600 */
+    --radius: 14px;
+    --shadow: 0 6px 24px rgba(2, 6, 23, 0.06);
+    --space: clamp(12px, 2vw, 24px);
+    --maxw: 1100px;
+    --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0b1020; /* deep blue-ish */
+        --fg: #e5e7eb; /* slate-200 */
+        --muted: #9ca3af; /* slate-400 */
+        --card: #0f172a; /* slate-900 */
+        --line: #1f2a44; /* custom */
+        --accent: #60a5fa; /* blue-400 */
+        --accent-hover: #93c5fd;
+        --danger: #f87171;
+        --warn: #fbbf24;
+        --ok: #34d399;
+        --shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 15px/1.6 var(--font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Page frame */
+body > h2 {
+    max-width: var(--maxw);
+    margin: calc(var(--space) + 6px) auto var(--space);
+    padding: 0 var(--space);
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+/* ========== Top Nav (the first UL) ========== */
+body > ul {
+    list-style: none;
+    margin: 0 auto var(--space);
+    padding: 8px;
+    max-width: var(--maxw);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+body > ul > li a {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--fg);
+    border: 1px solid transparent;
+    transition: border-color .15s ease, background-color .15s ease, transform .05s ease;
+}
+
+body > ul > li a:hover {
+    border-color: var(--line);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body > ul > li a:active {
+    transform: translateY(1px);
+}
+
+/* ========== Content Container ========== */
+main, section, .content, body > :not(h2):not(ul):not(script):not(style) {
+    max-width: var(--maxw);
+    margin: 0 auto var(--space);
+    padding: 20px var(--space);
+}
+
+/* ========== Links ========== */
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Prominent action link like “Add Book” (no class in HTML, so style standalone anchor before a table) */
+a[href*="add"], a[href*="Add"], a[href*="new"] {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    margin: 6px 0 12px;
+}
+
+a[href*="add"]:hover,
+a[href*="Add"]:hover,
+a[href*="new"]:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: transparent;
+    text-decoration: none;
+}
+
+/* ========== Alerts (Flask flash) ========== */
+.alert {
+    max-width: var(--maxw);
+    margin: 0 auto var(--space);
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--card);
+}
+
+.alert-success {
+    border-color: rgba(16, 185, 129, .35);
+    color: var(--ok);
+}
+
+.alert-error, .alert-danger {
+    border-color: rgba(239, 68, 68, .35);
+    color: var(--danger);
+}
+
+.alert-warning {
+    border-color: rgba(245, 158, 11, .35);
+    color: var(--warn);
+}
+
+.alert-info {
+    border-color: rgba(59, 130, 246, .35);
+    color: var(--accent);
+}
+
+/* ========== Table (book.html) ========== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden; /* for rounded corners */
+    box-shadow: var(--shadow);
+}
+
+th, td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    text-align: left;
+}
+
+th {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: .2px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.02), transparent);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+td img {
+    border-radius: 8px;
+    border: 1px solid var(--line);
+}
+
+td a {
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+/* Small screens: allow cells to wrap and keep layout readable */
+@media (max-width: 720px) {
+    th, td {
+        padding: 10px;
+    }
+
+    td, th {
+        word-break: break-word;
+    }
+
+    td:nth-child(1), th:nth-child(1) {
+        min-width: 160px;
+    }
+}
+
+/* ========== Pagination (bottom div) ========== */
+div:has(> a[href*="page="]), /* modern browsers */
+div[role="pagination"] {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: 10px;
+    width: max-content;
+    box-shadow: var(--shadow);
+}
+
+div:has(> a[href*="page="]) a,
+div[role="pagination"] a {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    text-decoration: none;
+}
+
+div:has(> a[href*="page="]) a:hover,
+div[role="pagination"] a:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: transparent;
+}
+
+/* ========== Forms (book_edit.html) ========== */
+form {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+label {
+    color: var(--muted);
+    /*display: inline-block;*/
+    margin: 8px 0 4px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="file"],
+textarea {
+    padding: 15px;
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 96px;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.add-btn {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Chapter rows (dynamically added) */
+.chapter-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.chapter-row .chapter-number {
+    width: 110px;
+}
+
+.chapter-row .chapter-content {
+    flex: 1;
+    height: 120px;
+}
+
+/* Buttons */
+button {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--fg);
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color .15s ease, transform .05s ease, color .15s ease, border-color .15s ease;
+    box-shadow: var(--shadow);
+}
+
+button:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: transparent;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Danger intent (like Delete) */
+form button[type="submit"][onclick*="Delete"],
+button.remove-chapter-btn {
+    border-color: color-mix(in srgb, var(--danger) 40%, var(--line));
+}
+
+form button[type="submit"][onclick*="Delete"]:hover,
+button.remove-chapter-btn:hover {
+    background: var(--danger);
+    color: #fff;
+    border-color: transparent;
+}
+
+/* Cover image preview */
+img[alt~="cover"] {
+    margin: 6px 0 12px;
+}
+
+/* ========== Tiny Polish ========== */
+h1, h3 {
+    margin: 6px 0 12px;
+    line-height: 1.25;
+}
+
+h1 {
+    font-size: clamp(20px, 3vw, 28px);
+}
+
+h3 {
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: var(--muted);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 18px 0;
+    opacity: .8;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between; /* 两端对齐 */
+    align-items: center;            /* 垂直居中 */
+    margin-top: 40px;               /* 可选：增加间距 */
+    margin-bottom: 20px;
+}
+
+.btn-group a {
+    border: 1px solid green;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+.btn-group a:hover {
+    background: greenyellow;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

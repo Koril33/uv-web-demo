@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+{% block title %}注册{% endblock %}
+
+{% block content %}
+<div class="login-box">
+  <h1>注册</h1>
+
+    {% if error %}
+      <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if message %}
+      <p>{{ message }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('auth.register') }}" method="post">
+      <label for="username">用户名：</label>
+      <input id="username" name="username" type="text" required autofocus>
+      <br>
+
+      <label for="password">密码：</label>
+      <input id="password" name="password" type="password" required>
+      <br>
+
+      <label for="password_confirm">确认密码：</label>
+      <input id="password_confirm" name="password_confirm" type="password" required>
+      <br>
+
+      <input type="submit" value="注册">
+    </form>
+
+  <p>
+    已有账号？<a href="{{ url_for('auth.login') }}">去登录</a>
+  </p>
+</div>
+{% endblock %}

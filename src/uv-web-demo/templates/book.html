@@ -1,0 +1,47 @@
+{% extends "dashboard.html" %}
+{% block title %}Books{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Books</h1>
+  <a href="{{ url_for('book.book_add') }}" class="add-btn">Add Book</a>
+</div>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Publish Date</th>
+        <th>Cover</th>
+        <th>Actions</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.description }}</td>
+        <td>{{ book.publish_date }}</td>
+        <td>
+            {% if book.cover_image_path %}
+                <img src="{{ url_for('static', filename=book.cover_image_path) }}" width="60" alt="book cover">
+            {% endif %}
+        </td>
+        <td>
+            <a href="{{ url_for('book.book_edit', book_id=book.id) }}">Edit</a>
+            <form action="{{ url_for('book.book_delete', book_id=book.id) }}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Delete this book?')">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div>
+    {% if page > 1 %}
+        <a href="{{ url_for('book.book', page=page-1) }}">Previous</a>
+    {% endif %}
+    Page {{ page }} of {{ total_pages }}
+    {% if page < total_pages %}
+        <a href="{{ url_for('book.book', page=page+1) }}">Next</a>
+    {% endif %}
+</div>
+{% endblock %}

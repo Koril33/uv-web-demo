@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DJHX-Shelf Dashboard {% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="/">Index</a>
+        <a href="/book">Book</a>
+        <a href="/dashboard">Movie</a>
+        <a href="/dashboard">Music</a>
+    </div>
+    <div class="nav-right">
+        <div class="dropdown">
+            <span class="username">Hi, {{ session['user']['username'] }} ▼</span>
+            <div class="dropdown-content">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+</body>
+</html>

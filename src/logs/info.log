@@ -1,0 +1,89 @@
+[2025-09-16 15:12:36,069] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:12:36,071] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:12:36,071] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:12:36,276] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:12:36,279] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:12:36,279] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:12:42,256] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:12:42,259] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:12:42,259] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:12:42,448] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:12:42,451] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:12:42,451] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:12:49,705] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:12:49,708] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:12:49,708] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:12:58,398] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:12:58,401] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:12:58,401] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:13:05,902] - ERROR    - app.py       - <log_exception  > :: Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Project\Study\uv-web-demo\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\src\uv-web-demo\route\main.py", line 21, in index
+    books = DB.query("SELECT * FROM t_book")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\src\uv-web-demo\db.py", line 33, in query
+    cur.execute(sql, params or [])
+sqlite3.OperationalError: no such table: t_book
+[2025-09-16 15:13:05,905] - ERROR    - __init__.py  - <server_error   > :: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+Traceback (most recent call last):
+  File "C:\Project\Study\uv-web-demo\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\src\uv-web-demo\route\main.py", line 21, in index
+    books = DB.query("SELECT * FROM t_book")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\Study\uv-web-demo\src\uv-web-demo\db.py", line 33, in query
+    cur.execute(sql, params or [])
+sqlite3.OperationalError: no such table: t_book
+[2025-09-16 15:13:43,616] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:13:43,619] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:13:43,619] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:15:29,300] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:15:29,302] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:15:29,302] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:19:07,503] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:19:07,505] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:19:07,506] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:19:17,773] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:19:17,775] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:19:17,776] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:19:24,378] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:19:24,381] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:19:24,381] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:23:24,862] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:23:24,864] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:23:24,865] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:23:54,344] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:23:54,346] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:23:54,347] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:24:12,982] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:24:12,985] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:24:12,985] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:25:59,390] - INFO     - __init__.py  - <create_app     > :: App config mode: development
+[2025-09-16 15:25:59,393] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:25:59,393] - INFO     - __init__.py  - <create_app     > :: Config mode: development | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:28:05,791] - INFO     - __init__.py  - <create_app     > :: App config mode: production
+[2025-09-16 15:28:05,793] - INFO     - __init__.py  - <create_app     > :: APP: uv-web-demo Start!
+[2025-09-16 15:28:05,794] - INFO     - __init__.py  - <create_app     > :: Config mode: production | APP_HOST: 0.0.0.0 | APP_PORT: 8125
+[2025-09-16 15:28:21,372] - INFO     - __init__.py  - <create_app     > :: App config mode: production1

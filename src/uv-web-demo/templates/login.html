@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+{% block title %}登录{% endblock %}
+
+{% block content %}
+    <div class="login-box">
+        <h1>登录</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('auth.login') }}" method="post">
+            <label for="username">用户名：</label>
+            <input id="username" name="username" type="text" required autofocus value="{{ username or '' }}">
+            <br>
+
+            <label for="password">密码：</label>
+            <input id="password" name="password" type="password" required>
+            <br>
+
+            {# 可选：保留用户访问前要跳回的地址 #}
+            {% if next_url %}
+            <input type="hidden" name="next_url" value="{{ next_url }}">
+            {% endif %}
+
+            <input type="submit" value="登录">
+        </form>
+
+        <p>
+            还没有账号？<a href="{{ url_for('auth.register') }}">去注册</a>
+        </p>
+    </div>
+
+{% endblock %}

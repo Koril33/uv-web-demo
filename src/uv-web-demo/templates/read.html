@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}第 {{ chapter.chapter }} 章{% endblock %}
+
+{% block content %}
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="/">首页</a>
+            <a href="/book_table/{{ chapter.book_id }}">{{ chapter.book_title }} - 目录</a>
+        </div>
+        <div class="nav-right">
+            {% if session.get('user') %}
+                <div class="dropdown">
+                    <span class="username">Hi, {{ session['user']['username'] }} ▼</span>
+                    <div class="dropdown-content">
+                        <a href="/dashboard">Dashboard</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="/login">Sign in</a>
+                <a href="/register">Sign up</a>
+            {% endif %}
+        </div>
+        <!-- 手机端汉堡按钮 -->
+        <div class="hamburger" onclick="toggleNav()">
+            ☰
+        </div>
+    </nav>
+
+    <div class="chapter-nav">
+        {% if chapter.prev_id %}
+            <a href="/book_chapter/{{ chapter.prev_id }}" onclick="clearCurrentScroll(); return true;">上一章</a>
+        {% else %}
+            <a class="disabled">上一章</a>
+        {% endif %}
+
+        {% if chapter.next_id %}
+            <a href="/book_chapter/{{ chapter.next_id }}" onclick="clearCurrentScroll(); return true;">下一章</a>
+        {% else %}
+            <a class="disabled">下一章</a>
+        {% endif %}
+    </div>
+
+    <h1>
+        {% if chapter.chapter and chapter.chapter_title %}
+            第 {{ chapter.chapter }} 章：{{ chapter.chapter_title }}
+        {% elif chapter.chapter %}
+            第 {{ chapter.chapter }} 章
+        {% elif chapter.chapter_title %}
+            {{ chapter.chapter_title }}
+        {% endif %}
+    </h1>
+
+    <div class="controls">
+        <button onclick="adjustFont(1)">字体 +</button>
+        <button onclick="adjustFont(-1)">字体 -</button>
+        <button onclick="adjustLetterSpacing(0.2)">字距 +</button>
+        <button onclick="adjustLetterSpacing(-0.2)">字距 -</button>
+        <button onclick="adjustLine(0.1)">行距 +</button>
+        <button onclick="adjustLine(-0.1)">行距 -</button>
+        <!-- 新增字体选择控件 -->
+        <label>
+            <select onchange="changeFontFamily(this.value)">
+                <option value="Georgia, serif">Georgia</option>
+                <option value="Arial">Arial</option>
+                <option value="Noto Sans SC">Noto Sans SC</option>
+                <option value="Noto Serif SC">Noto Serif SC</option>
+                <option value="ZCOOL XiaoWei">ZCOOL XiaoWei</option>
+                <option value="WDXL Lubrifont TC">WDXL Lubrifont TC</option>
+            </select>
+        </label>
+        <button onclick="resetStyle()">重置默认</button>
+        <button onclick="toggleDark()">切换暗黑模式</button>
+    </div>
+
+    <div class="content" id="content">
+        {{ chapter.content }}
+    </div>
+
+    <div class="chapter-nav bottom fixed">
+        {% if chapter.prev_id %}
+            <a href="/book_chapter/{{ chapter.prev_id }}" onclick="clearCurrentScroll(); return true;">上一章</a>
+        {% else %}
+            <a class="disabled">上一章</a>
+        {% endif %}
+
+        <!-- 阅读进度 -->
+        <p id="readingProgress">0%</p>
+
+        <!-- 目录下拉 -->
+        <div class="dropdown chapter-dropdown">
+            <button class="dropdown-toggle">目录</button>
+            <div class="dropdown-menu">
+                <h3>章节列表</h3>
+                <ul class="chapter-list">
+                    {% for chap in book_chapters %}
+                        <li>
+                            <a href="{{ url_for('book.book_chapter', chapter_id=chap.id) }}">
+                                {% if chap.chapter and chap.chapter_title %}
+                                    第 {{ chap.chapter }} 章：{{ chap.chapter_title }}
+                                {% elif chap.chapter %}
+                                    第 {{ chap.chapter }} 章
+                                {% elif chap.chapter_title %}
+                                    {{ chap.chapter_title }}
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li><em>暂无章节</em></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        {% if chapter.next_id %}
+            <a href="/book_chapter/{{ chapter.next_id }}" onclick="clearCurrentScroll(); return true;">下一章</a>
+        {% else %}
+            <a class="disabled">下一章</a>
+        {% endif %}
+    </div>
+
+    <script>
+        window.chapterData = {
+            bookId: "{{ chapter.book_id }}",
+            chapterId: "{{ chapter.id }}"
+        };
+    </script>
+{% endblock %}

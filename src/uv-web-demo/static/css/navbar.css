@@ -1,0 +1,124 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    font-family: sans-serif;
+    position: relative;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar a, .navbar .username {
+    text-decoration: none;
+    color: #0077cc;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.navbar a:hover, .navbar .username:hover {
+    color: #005fa3;
+}
+
+/* 暗黑模式 */
+body.dark .navbar {
+    background: #222;
+    border-bottom: 1px solid #444;
+}
+body.dark .navbar a,
+body.dark .navbar .username {
+    color: #4da6ff;
+}
+body.dark .navbar a:hover,
+body.dark .navbar .username:hover {
+    color: #3399ff;
+}
+
+/* 下拉菜单 */
+.dropdown {
+    position: relative;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    min-width: 140px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 5px;
+    z-index: 1000;
+}
+.dropdown-content a {
+    display: block;
+    padding: 10px 15px;
+    color: #0077cc;
+}
+.dropdown-content a:hover {
+    background: #f2f2f2;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+/* 暗黑模式下拉 */
+body.dark .dropdown-content {
+    background: #333;
+}
+body.dark .dropdown-content a {
+    color: #4da6ff;
+}
+body.dark .dropdown-content a:hover {
+    background: #444;
+}
+
+/* 汉堡按钮 */
+.hamburger {
+    display: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+
+    h1 {
+        margin-top: 20%;
+    }
+
+    .nav-left, .nav-right {
+        display: none;
+        flex-direction: column;
+        background: #f8f9fa;
+        position: absolute;
+        left: 0;
+        right: 0;
+        padding: 10px 0;
+        border-top: 1px solid #ddd;
+    }
+    .nav-left {
+        top: 100%;
+        display: flex; /* 示例：默认展开左侧？根据逻辑调整 */
+    }
+    .nav-right {
+        top: auto; /* JS 会覆盖这个值 */
+    }
+    body.nav-open .nav-left,
+    body.nav-open .nav-right {
+        display: flex;
+    }
+    .hamburger {
+        display: block;
+    }
+
+    /* 暗黑模式 */
+    body.dark .nav-left,
+    body.dark .nav-right {
+        background: #222;
+        border-top: 1px solid #444;
+    }
+}

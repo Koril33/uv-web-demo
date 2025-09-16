@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+
+{% block content %}
+
+    <nav class="navbar">
+        <div class="nav-left"></div>
+        <div class="nav-right">
+            <button onclick="toggleDark()">切换暗黑模式</button>
+            {% if session.get('user') %}
+                <div class="dropdown">
+                    <span class="username">Hi, {{ session['user']['username'] }} ▼</span>
+                    <div class="dropdown-content">
+                        <a href="/dashboard">Dashboard</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="/login">Sign in</a>
+                <a href="/register">Sign up</a>
+            {% endif %}
+        </div>
+        <!-- 手机端汉堡按钮 -->
+        <div class="hamburger" onclick="document.body.classList.toggle('nav-open')">
+            ☰
+        </div>
+    </nav>
+
+    <ul class="books-container">
+        {% for book in books %}
+            <li>
+                <a href="{{ url_for('book.book_table', book_id=book.id) }}">
+                    {% if book.cover_image_path %}
+                        <img src="{{ url_for('static', filename=book.cover_image_path) }}" alt="封面">
+                    {% endif %}
+                    <span>{{ book.title }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
