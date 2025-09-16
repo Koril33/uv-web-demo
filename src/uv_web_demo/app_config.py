@@ -1,6 +1,6 @@
 class AppConfig(object):
     # 存储公共配置
-    PROJECT_NAME = "uv-web-demo"
+    PROJECT_NAME = "uv_web_demo"
 
     APP_HOST = "0.0.0.0"
     APP_PORT = 8125
