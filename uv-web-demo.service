@@ -1,0 +1,20 @@
+[Unit]
+Description=uv-web-demo
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60s
+StartLimitBurst=3
+
+[Service]
+Type=simple
+WorkingDirectory=/home/letspot/project/uv-web-demo
+User=letspot
+Group=letspot
+Environment=CONFIG_MODE=production
+ExecStart=/home/letspot/project/uv-web-demo/.venv/bin/gunicorn app:app
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
