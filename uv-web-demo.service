@@ -11,7 +11,7 @@ WorkingDirectory=/home/letspot/project/uv-web-demo
 User=letspot
 Group=letspot
 Environment=CONFIG_MODE=production
-ExecStart=/home/letspot/project/uv-web-demo/.venv/bin/gunicorn app:app
+ExecStart=/home/letspot/project/uv-web-demo/.venv/bin/gunicorn src.uv_web_demo.app:app
 ExecStop=/bin/kill -s TERM $MAINPID
 Restart=on-failure
 RestartSec=5
